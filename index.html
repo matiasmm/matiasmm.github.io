@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<h1>Logs</h1>
+					<img src="assets/wooden-logs-500x500.jpg" alt="">
+					<h2>Good practices and Sumologic</h2>
+				</section>
+				<section>
+					<h2 class="fragment">What do we need logging for</h2>
+					<ul>
+						<li class="fragment">Debugging errors where developers don't have access to</li>
+						<li class="fragment">Monitoring</li>
+						<li class="fragment">Alerting</li>
+						<li class="fragment">Data Science</li>
+					</ul>
+				</section>
+				<section>
+					<div class="fragment">
+							<h2>Good data</h2>
+							<img src="assets/checkmark.svg" height="100em" alt="">
+					</div>
+					<ul>
+						<li class="fragment">Data must be reliable</li>
+						<li class="fragment">Well formatted</li>
+					</ul>
+				</section>
+				<section>
+					<h2 class="fragment">The problems we had</h2>
+					<ul>
+						<li class="fragment">Log format was inconsistent: plain text and JSON</li>
+						<li class="fragment">Hard to trace related log messages</li>
+						<li class="fragment">Big log objects could be huge (loggly had issues when displaying them)</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Problem: Log format was inconsistent Hard to debug errors</h3>
+					<ul>
+						<li class="fragment">We centralized the function that prints logs</li>
+						<li class="fragment">We normalized them using JSON format</li>
+						<li class="fragment">We can filter by JSON keys now</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Problem: Traceability between logs coming from the same request</h3>
+					<ul>
+						<li class="fragment">We added a trace ID that groups together all related logs</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Problem: Traceability between api calls</h2>
+					<ul>
+						<li class="fragment">We send the trace ID through the headers</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Problem: Big log objects could be huge (loggly had issues when displaying them)</h2>
+					<ul>
+						<li class="fragment">Sumologic</li>
+						<li></li>
+					</ul>
+				</section>
+	
+				<section>
+					<h2>What we did</h2>
+					<ul>
+						<li class="fragment">plain text to JSON</li>
+						<li class="fragment">Traceable ID unique per request</li>
+						<li class="fragment">Controller</li>
+						<li class="fragment">Implemented Sumologic</li>
+					</ul>
+				</section>
+		
+				<section>
+					<h2>Example</h2>
+
+					<img src="assets/error.png"  />
+
+				</section>
+
+				<section>
+					<h2>Sumologic > JSON Queries</h2>
+					<h3></h3>
+					<img src="assets/s1.png"  />
+				</section>
+
+				<section>
+					<h2>Sumologic > Queries</h2>
+					<img src="assets/s2.gif"  />
+				</section>
+
+				<section>
+                     <h2>Sumologic > Metrics</h2>
+					<img src="assets/monitor.png"  />
+				</section>
+
+				<div class="share-reveal">
+					Logs: good practices
+				</div>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
