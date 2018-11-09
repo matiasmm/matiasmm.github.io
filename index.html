@@ -14,27 +14,52 @@
 
 		<!-- Printing and PDF exports -->
 		<script>
+			
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+		<style>
+			.column {
+				float: left;
+				width: 50%;
+			}
+
+			/* Clear floats after the columns */
+			.row:after {
+				content: "";
+				display: table;
+				clear: both;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-
 				<section>
 					<h1>Logs</h1>
 					<img src="assets/wooden-logs-500x500.jpg" alt="">
 					<h2>Good practices and Sumologic</h2>
 				</section>
 				<section>
+
+					<h4>Matias M. Montenegro</h4>
+					<h4>Rosario - Santa Fe- Argentina</h4>
+						<div class="row">
+								<div class="column"><img src="assets/rosario.jpg" alt=""></div>
+								<div class="column">
+									<img src="assets/asado.jpg" alt="">
+								</div>
+							  </div>
+				</section>
+				<section>
 					<h2 class="fragment">What do we need logging for</h2>
 					<ul>
 						<li class="fragment">Debugging errors where developers don't have access to</li>
-						<li class="fragment">Monitoring</li>
+						<li class="fragment">Monitoring metrics</li>
 						<li class="fragment">Alerting</li>
 						<li class="fragment">Data Science</li>
 					</ul>
@@ -45,16 +70,22 @@
 							<img src="assets/checkmark.svg" height="100em" alt="">
 					</div>
 					<ul>
-						<li class="fragment">Data must be reliable</li>
-						<li class="fragment">Well formatted</li>
+						<li class="fragment">Easy to parse</li>
+						<li class="fragment">Reliable</li>
 					</ul>
 				</section>
 				<section>
+
+				</section>
+				<section>
 					<h2 class="fragment">The problems we had</h2>
-					<ul>
-						<li class="fragment">Log format was inconsistent: plain text and JSON</li>
+						<ul>
+						<li class="fragment">Log format was inconsistent</li>
+						<ul class="fragment">
+							<li>key-value pairs: "KEY1=VAL1 KEY2=VAL2 ...."</li>
+							<li>JSON</li>
+						</ul>
 						<li class="fragment">Hard to trace related log messages</li>
-						<li class="fragment">Big log objects could be huge (loggly had issues when displaying them)</li>
 					</ul>
 				</section>
 				<section>
@@ -62,44 +93,38 @@
 					<ul>
 						<li class="fragment">We centralized the function that prints logs</li>
 						<li class="fragment">We normalized them using JSON format</li>
-						<li class="fragment">We can filter by JSON keys now</li>
+						<li class="fragment">We added context data for traceability</li>
 					</ul>
 				</section>
 				<section>
-					<h3>Problem: Traceability between logs coming from the same request</h3>
+					<h3>Traceability</h3>
 					<ul>
 						<li class="fragment">We added a trace ID that groups together all related logs</li>
+						<li class="fragment">
+								<img src="assets/express-http-context.png" alt="">
+						</li>
+						<li class="fragment">https://www.npmjs.com/package/express-http-context</li>
 					</ul>
 				</section>
 				<section>
-					<h2>Problem: Traceability between api calls</h2>
+					<h3>Traceability between internal API calls</h3>
 					<ul>
-						<li class="fragment">We send the trace ID through the headers</li>
+          					<img src="assets/UML2.png" alt="">
 					</ul>
 				</section>
 				<section>
-					<h2>Problem: Big log objects could be huge (loggly had issues when displaying them)</h2>
-					<ul>
-						<li class="fragment">Sumologic</li>
-						<li></li>
-					</ul>
-				</section>
-	
-				<section>
-					<h2>What we did</h2>
-					<ul>
-						<li class="fragment">plain text to JSON</li>
-						<li class="fragment">Traceable ID unique per request</li>
-						<li class="fragment">Controller</li>
-						<li class="fragment">Implemented Sumologic</li>
-					</ul>
-				</section>
-		
-				<section>
-					<h2>Example</h2>
+					<img src="assets/sumologic-log.png" alt="">
 
-					<img src="assets/error.png"  />
+					<div>Cloud-based Log Management platform</div>
+				</section>
+			
+				<section data-background-image="assets/sl-fiter.gif" data-background-size="contain">
+					<h3>Example</h3>
+				</section>
 
+				<section>
+					<h2>Full Story</h2>
+					<img src="assets/fullstory.gif" alt="">
 				</section>
 
 				<section>
@@ -119,7 +144,6 @@
 				</section>
 
 				<div class="share-reveal">
-					Logs: good practices
 				</div>
 			</div>
 		</div>
